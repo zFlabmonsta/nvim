@@ -13,9 +13,9 @@ Plugin 'VundleVim/Vundle.vim'
 " Vundle Preference
 "************************************************************
 "Syntax
-Plugin 'dkarter/bullets.vim'            " bullets in vim
-Plugin 'tpope/vim-git'
-Plugin 'vimwiki/vimwiki'                " vim wiki
+    "Plugin 'dkarter/bullets.vim'            " bullets in vim
+    "Plugin 'tpope/vim-git'
+    "Plugin 'vimwiki/vimwiki'                " vim wiki
 Plugin 'vim-syntastic/syntastic'        
 ""************************************************************
 "Make Life Easier
@@ -37,7 +37,7 @@ Plugin 'ervandew/supertab'
 
 "*************************************************************
 " Python-Jedi 
-Plugin 'davidhalter/jedi-vim'
+" Plugin 'davidhalter/jedi-vim'
 
 "*************************************************************
 " All of your Plugins must be added before the following line
@@ -58,12 +58,15 @@ call plug#begin()
   Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
+
   "Python
   Plug 'zchee/deoplete-jedi'
   " Disable open paren when inserting function name
   let g:autocomplete_flow#insert_paren_after_function = 1
+
   " C
   Plug 'zchee/deoplete-clang'
+
   " JS
   Plug 'wokalski/autocomplete-flow'
   Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
@@ -138,5 +141,16 @@ set clipboard=unnamed
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<C-d>"
+
+"************************************************************
+"Syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 "************************************************************
