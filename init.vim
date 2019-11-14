@@ -10,18 +10,6 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" Vundle Preference
-"************************************************************
-"Syntax
-    "Plugin 'dkarter/bullets.vim'            " bullets in vim
-    "Plugin 'tpope/vim-git'
-    "Plugin 'vimwiki/vimwiki'                " vim wiki
-Plugin 'vim-syntastic/syntastic'        
-""************************************************************
-"Make Life Easier
-Plugin 'ctrlpvim/ctrlp.vim'
-"Plugin 'tomtom/tcomment_vim'			" comment awareness
-Plugin 'easymotion/vim-easymotion'		" jumping tool
 Plugin 'scrooloose/nerdTree'			" directory tab on vim
 "*************************************************************
 "Git
@@ -31,55 +19,96 @@ Plugin 'tpope/vim-fugitive'
 "Theme
 Plugin 'dracula/vim'                    " dracula theme
 Plugin 'itchyny/lightline.vim' 			" Modified status bar
-"*************************************************************
-"SuperTab
-Plugin 'ervandew/supertab'
-
-"*************************************************************
-" Python-Jedi 
-" Plugin 'davidhalter/jedi-vim'
-
-"*************************************************************
-" All of your Plugins must be added before the following line
 call vundle#end()            " required
 
 "vim-plug Preference
 call plug#begin()
 
-  "UltiSnps & vim-snippets
-  Plug 'roxma/nvim-completion-manager'
-  Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
+" Async autocompletion
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Completion from other opened files
+Plug 'Shougo/context_filetype.vim'
+" Python autocompletion
+Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
+" Just to add the python go-to-definition and similar features, autocompletion
+" from this plugin is disabled
+Plug 'davidhalter/jedi-vim'
 
-  "Linter
-  Plug 'w0rp/ale'
+" Automatically close parenthesis, etc
+Plug 'Townk/vim-autoclose'
 
-  "Deoplete
-  Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+" Surround
+Plug 'tpope/vim-surround'
 
-  "Python
-  Plug 'zchee/deoplete-jedi'
-  " Disable open paren when inserting function name
-  let g:autocomplete_flow#insert_paren_after_function = 1
+" Indent text object
+Plug 'michaeljsmith/vim-indent-object'
 
-  " C
-  Plug 'zchee/deoplete-clang'
+" Indentation based movements
+Plug 'jeetsukumaran/vim-indentwise'
 
-  " JS
-  Plug 'wokalski/autocomplete-flow'
-  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+" Paint css colors with the real color
+Plug 'lilydjwg/colorizer'
 
-  let g:deoplete#num_processes = 1
-  let g:deoplete#enable_at_startup = 1
+" Window chooser
+Plug 't9md/vim-choosewin'
 
-  " For func argument completion
-  Plug 'Shougo/neosnippet'
-  Plug 'Shougo/neosnippet-snippets'
-  let g:neosnippet#enable_completed_snippet = 1
+" Automatically sort python imports
+Plug 'fisadev/vim-isort'
+
+" Highlight matching html tags
+Plug 'valloric/MatchTagAlways'
+
+" Generate html in a simple way
+Plug 'mattn/emmet-vim'
+
+" Linters
+Plug 'neomake/neomake'
+
+" Code and files fuzzy finder
+ Plug 'ctrlpvim/ctrlp.vim'
+" Extension to ctrlp, for fuzzy command finder
+ Plug 'fisadev/vim-ctrlp-cmdpalette'
 
 call plug#end()
+
+" Deoplete -----------------------------
+
+" Use deoplete.
+
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 1
+let g:deoplete#enable_smart_case = 1
+" complete with words from any opened file
+let g:context_filetype#same_filetypes = {}
+let g:context_filetype#same_filetypes._ = '_'
+
+" Jedi-vim ------------------------------
+
+" Disable autocompletion (using deoplete instead)
+let g:jedi#completions_enabled = 0
+
+" All these mappings work only for python code:
+" Go to definition
+let g:jedi#goto_command = ',d'
+" Find ocurrences
+let g:jedi#usages_command = ',o'
+" Find assignments
+let g:jedi#goto_assignments_command = ',a'
+" Go to definition in new tab
+nmap ,D :tab split<CR>:call jedi#goto()<CR>
+
+"-------------------------------------------------"
+
+" needed so deoplete can auto select the first suggestion
+set completeopt+=noinsert
+" comment this line to enable autocompletion preview window
+" (displays documentation related to the selected completion option)
+set completeopt-=preview
+
+" autocompletion of files and commands behaves like shell
+" (complete only the common part, list the options that match)
+set wildmode=list:longest
+
 
 "filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
@@ -112,45 +141,17 @@ set termguicolors                          "use GUI colors for the terminal
 " Indentation
 set expandtab
 set tabstop=4
+set softtabstop=4
 set shiftwidth=4
-"set autoindent
-"set smartindent
 
 " Backspace problem
 set backspace=2
 
-"These are stock theme options
-"colorscheme pablo 
-"blue.vim
-"darkblue.vim
-"default.vim
-"delek.vim
-"desert.vim
-"elflord.vim
-"evening.vim
-"koehler.vim
-
 "NERDTree mapping
 map <C-n> :NERDTreeToggle<CR>
 
+"Choosewin mapping
+nmap  -  <Plug>(choosewin)
+
 "clipboard
-set clipboard=unnamed
-
-"*************************************************************
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<C-d>"
-
-"************************************************************
-"Syntastic settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-"************************************************************
+set clipboard+=unnamed
