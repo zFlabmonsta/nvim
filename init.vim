@@ -153,5 +153,8 @@ map <C-n> :NERDTreeToggle<CR>
 "Choosewin mapping
 nmap  -  <Plug>(choosewin)
 
+"CtrlP mapping
+let g:ctrlp_map = '<c-p>'
+
 "clipboard
 set clipboard+=unnamed
