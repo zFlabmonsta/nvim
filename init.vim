@@ -69,6 +69,9 @@ Plug 'neomake/neomake'
 " Extension to ctrlp, for fuzzy command finder
  Plug 'fisadev/vim-ctrlp-cmdpalette'
 
+ "C# IDE
+ Plug 'OmniSharp/omnisharp-vim'
+
 call plug#end()
 
 " Deoplete -----------------------------
@@ -83,6 +86,8 @@ let g:context_filetype#same_filetypes = {}
 let g:context_filetype#same_filetypes._ = '_'
 
 " Jedi-vim ------------------------------
+
+let g:AutoClosePumvisible = {"ENTER": "<C-Y>", "ESC": "<ESC>"}
 
 " Disable autocompletion (using deoplete instead)
 let g:jedi#completions_enabled = 0
@@ -155,6 +160,10 @@ nmap  -  <Plug>(choosewin)
 
 "CtrlP mapping
 let g:ctrlp_map = '<c-p>'
+
+"Double Escape
+inoremap <Esc> <Esc><Esc><Esc>
+
 
 "clipboard
 set clipboard+=unnamed
