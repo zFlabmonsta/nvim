@@ -42,7 +42,7 @@ require('go').setup({
     lsp_inlay_hints = {
         enable = true,
         -- Only show inlay hints for the current line
-        only_current_line = false,
+        only_current_line = true,
         -- Event which triggers a refersh of the inlay hints.
         -- You can make this "CursorMoved" or "CursorMoved,CursorMovedI" but
         -- not that this may cause higher CPU usage.
