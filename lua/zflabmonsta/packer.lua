@@ -8,7 +8,15 @@ return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 
     -- @Productivity
-    use {('folke/trouble.nvim'), wants = { 'nvim-tree/nvim-web-devicons' }}
+    use {
+        ('folke/trouble.nvim'),
+        wants = { 'nvim-tree/nvim-web-devicons' },
+        config = function()
+            require("trouble").setup{
+                mode = "quickfix"
+            }
+        end
+    }
     use ('lewis6991/gitsigns.nvim')
     use ('mbbill/undotree')
     use ('nvim-treesitter/playground')
