@@ -13,8 +13,9 @@ return require('packer').startup(function(use)
         wants = { 'nvim-tree/nvim-web-devicons' },
         config = function()
             require("trouble").setup{
-                mode = "quickfix"
+                mode = "diagnostics"
             }
+            vim.keymap.set('n', '<leader>tl', '<cmd>Trouble diagnostics<cr>', {silent = true, noremap = true})
         end
     }
     use ('lewis6991/gitsigns.nvim')
