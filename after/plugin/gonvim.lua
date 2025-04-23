@@ -5,7 +5,7 @@ require('go').setup({
     go='go', -- go command, can be go[default] or go1.18beta1
     goimports='gopls', -- goimport command, can be gopls[default] or goimport
     fillstruct = 'gopls', -- can be nil (use fillstruct, slower) and gopls
-    gofmt = 'gofumpt', --gofmt cmd,
+    gofmt = 'gofmt', --gofmt cmd,
     tag_transform = false, -- can be transform option("snakecase", "camelcase", etc) check gomodifytags for details and more options
     tag_options = 'json=omitempty', -- sets options sent to gomodifytags, i.e., json=omitempty
     gotests_template = "", -- sets gotests -template parameter (check gotests for details)
